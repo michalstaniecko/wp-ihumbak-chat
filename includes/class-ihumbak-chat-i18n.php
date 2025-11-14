@@ -16,7 +16,7 @@
  * @package    IhumbakChat
  * @subpackage IhumbakChat/includes
  */
-class Ihumbak_Chat_i18n {
+class Ihumbak_Chat_I18n {
 
 	/**
 	 * Load the plugin text domain for translation.

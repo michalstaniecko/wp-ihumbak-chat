@@ -4,7 +4,6 @@ vendor/
 
 # Build outputs
 dist/
-public/css/ihumbak-widget.css
 *.map
 
 # Environment files
@@ -45,6 +44,3 @@ temp/
 # PHPUnit
 phpunit.xml
 .phpunit.result.cache
-
-# Composer
-composer.lock
