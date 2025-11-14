@@ -9,6 +9,9 @@ on:
       - 'postcss.config.js'
       - 'public/templates/**'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Compile TailwindCSS
