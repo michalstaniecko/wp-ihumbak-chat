@@ -1,0 +1,45 @@
+name: Build CSS
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'public/css/input.css'
+      - 'tailwind.config.js'
+      - 'postcss.config.js'
+      - 'public/templates/**'
+
+jobs:
+  build:
+    name: Compile TailwindCSS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Build CSS
+        run: npm run build
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code public/css/ihumbak-widget.css || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit built files
+        if: steps.git-check.outputs.changed == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'Build: Compile TailwindCSS'
+          file_pattern: 'public/css/ihumbak-widget.css'

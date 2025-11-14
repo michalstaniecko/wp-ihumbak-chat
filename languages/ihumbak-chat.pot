@@ -1,0 +1,17 @@
+# Translation Template for iHumbak Chat
+# Copyright (C) 2025 Michał Staniecko
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: iHumbak Chat 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/michalstaniecko/wp-ihumbak-chat/issues\n"
+"POT-Creation-Date: 2025-11-14 21:37:00+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Plugin strings will be added here as the plugin is developed
