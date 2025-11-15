@@ -88,6 +88,31 @@ class Ihumbak_Chat {
 		 */
 		require_once IHUMBAK_CHAT_PLUGIN_DIR . 'includes/class-ihumbak-chat-i18n.php';
 
+		/**
+		 * The class responsible for settings and options management.
+		 */
+		require_once IHUMBAK_CHAT_PLUGIN_DIR . 'includes/class-ihumbak-settings.php';
+
+		/**
+		 * The class responsible for security and validation.
+		 */
+		require_once IHUMBAK_CHAT_PLUGIN_DIR . 'includes/class-ihumbak-security.php';
+
+		/**
+		 * The class responsible for message custom post type.
+		 */
+		require_once IHUMBAK_CHAT_PLUGIN_DIR . 'includes/class-ihumbak-messages.php';
+
+		/**
+		 * The class responsible for email notifications.
+		 */
+		require_once IHUMBAK_CHAT_PLUGIN_DIR . 'includes/class-ihumbak-email.php';
+
+		/**
+		 * The class responsible for REST API endpoints.
+		 */
+		require_once IHUMBAK_CHAT_PLUGIN_DIR . 'includes/class-ihumbak-rest-api.php';
+
 		$this->loader = new Ihumbak_Chat_Loader();
 	}
 
@@ -113,7 +138,10 @@ class Ihumbak_Chat {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
-		// Admin hooks will be defined here in later phases.
+		// Register custom post type and meta fields.
+		$messages = new Ihumbak_Messages();
+		$this->loader->add_action( 'init', $messages, 'register_cpt' );
+		$this->loader->add_action( 'init', $messages, 'register_post_meta' );
 	}
 
 	/**
@@ -124,7 +152,9 @@ class Ihumbak_Chat {
 	 * @access   private
 	 */
 	private function define_public_hooks() {
-		// Public hooks will be defined here in later phases.
+		// Register REST API routes.
+		$rest_api = new Ihumbak_REST_API();
+		$this->loader->add_action( 'rest_api_init', $rest_api, 'register_routes' );
 	}
 
 	/**
