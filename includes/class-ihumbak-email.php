@@ -63,95 +63,15 @@ class Ihumbak_Email {
 
 		$admin_url = $post_id ? admin_url( 'post.php?post=' . $post_id . '&action=edit' ) : admin_url( 'edit.php?post_type=ihumbak_message' );
 
+		// Allow theme/plugin to override template.
+		$template = locate_template( 'ihumbak-chat/email/admin-notification.php' );
+
+		if ( ! $template ) {
+			$template = IHUMBAK_CHAT_PLUGIN_DIR . 'templates/email/admin-notification.php';
+		}
+
 		ob_start();
-		?>
-		<!DOCTYPE html>
-		<html>
-		<head>
-			<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<title><?php echo esc_html__( 'New Message', 'ihumbak-chat' ); ?></title>
-		</head>
-		<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-			<div style="background-color: #f8f9fa; border-radius: 8px; padding: 30px; margin-bottom: 20px;">
-				<h1 style="color: #007bff; margin: 0 0 20px 0; font-size: 24px;">
-					<?php echo esc_html__( 'iHumbak Chat - New Message', 'ihumbak-chat' ); ?>
-				</h1>
-				<p style="margin: 0; color: #6c757d;">
-					<?php echo esc_html__( 'You have received a new message from your website.', 'ihumbak-chat' ); ?>
-				</p>
-			</div>
-
-			<div style="background-color: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 30px; margin-bottom: 20px;">
-				<h2 style="color: #495057; margin: 0 0 15px 0; font-size: 18px; border-bottom: 2px solid #e9ecef; padding-bottom: 10px;">
-					<?php echo esc_html__( 'Message Details', 'ihumbak-chat' ); ?>
-				</h2>
-
-				<div style="margin-bottom: 15px;">
-					<strong style="color: #495057;"><?php echo esc_html__( 'From:', 'ihumbak-chat' ); ?></strong>
-					<p style="margin: 5px 0 0 0; color: #007bff;">
-						<a href="mailto:<?php echo esc_attr( $email ); ?>" style="color: #007bff; text-decoration: none;">
-							<?php echo esc_html( $email ); ?>
-						</a>
-					</p>
-				</div>
-
-				<div style="margin-bottom: 15px;">
-					<strong style="color: #495057;"><?php echo esc_html__( 'Message:', 'ihumbak-chat' ); ?></strong>
-					<div style="margin: 10px 0 0 0; padding: 15px; background-color: #f8f9fa; border-left: 4px solid #007bff; border-radius: 4px;">
-						<?php echo nl2br( esc_html( $message ) ); ?>
-					</div>
-				</div>
-
-				<?php if ( $ip ) : ?>
-				<div style="margin-bottom: 15px;">
-					<strong style="color: #495057;"><?php echo esc_html__( 'IP Address:', 'ihumbak-chat' ); ?></strong>
-					<p style="margin: 5px 0 0 0; color: #6c757d; font-family: monospace;">
-						<?php echo esc_html( $ip ); ?>
-					</p>
-				</div>
-				<?php endif; ?>
-
-				<?php if ( $user_agent ) : ?>
-				<div style="margin-bottom: 15px;">
-					<strong style="color: #495057;"><?php echo esc_html__( 'User Agent:', 'ihumbak-chat' ); ?></strong>
-					<p style="margin: 5px 0 0 0; color: #6c757d; font-size: 12px; word-break: break-all;">
-						<?php echo esc_html( $user_agent ); ?>
-					</p>
-				</div>
-				<?php endif; ?>
-
-				<?php if ( $referer ) : ?>
-				<div style="margin-bottom: 15px;">
-					<strong style="color: #495057;"><?php echo esc_html__( 'From Page:', 'ihumbak-chat' ); ?></strong>
-					<p style="margin: 5px 0 0 0;">
-						<a href="<?php echo esc_url( $referer ); ?>" style="color: #007bff; text-decoration: none; word-break: break-all;">
-							<?php echo esc_html( $referer ); ?>
-						</a>
-					</p>
-				</div>
-				<?php endif; ?>
-			</div>
-
-			<div style="text-align: center; margin-bottom: 20px;">
-				<a href="<?php echo esc_url( $admin_url ); ?>" style="display: inline-block; background-color: #007bff; color: #fff; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold;">
-					<?php echo esc_html__( 'View in Dashboard', 'ihumbak-chat' ); ?>
-				</a>
-			</div>
-
-			<div style="text-align: center; padding: 20px; border-top: 1px solid #dee2e6; color: #6c757d; font-size: 12px;">
-				<p style="margin: 0 0 10px 0;">
-					<?php echo esc_html__( 'This email was sent by iHumbak Chat plugin.', 'ihumbak-chat' ); ?>
-				</p>
-				<p style="margin: 0;">
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=ihumbak-chat-settings' ) ); ?>" style="color: #6c757d; text-decoration: underline;">
-						<?php echo esc_html__( 'Manage Settings', 'ihumbak-chat' ); ?>
-					</a>
-				</p>
-			</div>
-		</body>
-		</html>
-		<?php
+		include $template;
 		return ob_get_clean();
 	}
 
