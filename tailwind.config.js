@@ -41,6 +41,9 @@ module.exports = {
         '22': '5.5rem',
         '26': '6.5rem'
       },
+      zIndex: {
+        '60': '60'
+      },
       animation: {
         'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'slide-up': 'slideUp 0.3s ease-out',

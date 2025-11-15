@@ -1,0 +1,128 @@
+<!-- iHumbak Chat Widget Template -->
+
+<!-- Chat Bubble Icon (Trigger) -->
+<div id="ihumbak-chat-bubble" 
+     class="widget-bubble bg-primary bottom-6 right-6 w-16 h-16 flex items-center justify-center animate-pulse-subtle"
+     data-nonce=""
+     data-site-key=""
+     data-admin-email=""
+     role="button"
+     aria-label="Open chat widget"
+     tabindex="0">
+    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+    </svg>
+</div>
+
+<!-- Widget Form (Hidden by default) -->
+<div id="ihumbak-chat-widget" 
+     class="widget-form bottom-24 right-6 w-96 max-w-[calc(100vw-3rem)] hidden opacity-0"
+     role="dialog"
+     aria-labelledby="widget-title"
+     aria-hidden="true">
+    
+    <!-- Header -->
+    <div class="bg-primary text-white px-6 py-4 rounded-t-lg flex items-center justify-between">
+        <h3 id="widget-title" class="text-lg font-semibold">Get in Touch</h3>
+        <button id="ihumbak-close-widget" 
+                class="text-white hover:text-gray-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 rounded"
+                aria-label="Close chat widget">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div class="bg-white px-6 py-6">
+        <form id="ihumbak-chat-form" novalidate>
+            <!-- Email Input -->
+            <div class="mb-4">
+                <label for="ihumbak-email" class="block text-sm font-medium text-gray-700 mb-2">
+                    Your Email <span class="text-red-500">*</span>
+                </label>
+                <input 
+                    type="email" 
+                    id="ihumbak-email" 
+                    name="email"
+                    class="input-field"
+                    placeholder="your.email@example.com"
+                    required
+                    aria-required="true"
+                    aria-describedby="email-error">
+                <p id="email-error" class="error-message hidden" role="alert"></p>
+            </div>
+
+            <!-- Message Textarea -->
+            <div class="mb-4">
+                <label for="ihumbak-message" class="block text-sm font-medium text-gray-700 mb-2">
+                    Your Message <span class="text-red-500">*</span>
+                </label>
+                <textarea 
+                    id="ihumbak-message" 
+                    name="message"
+                    rows="4"
+                    class="input-field resize-none"
+                    placeholder="Type your message here..."
+                    required
+                    aria-required="true"
+                    aria-describedby="message-error message-counter"
+                    minlength="5"
+                    maxlength="5000"></textarea>
+                <div class="flex items-center justify-between mt-1">
+                    <p id="message-error" class="error-message hidden" role="alert"></p>
+                    <p id="message-counter" class="text-xs text-gray-500" aria-live="polite">
+                        <span id="message-count">0</span>/5000
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="bg-gray-50 px-6 py-4 rounded-b-lg">
+        <button 
+            id="ihumbak-send-btn"
+            type="submit"
+            form="ihumbak-chat-form"
+            class="btn-primary w-full flex items-center justify-center"
+            aria-label="Send message">
+            <span id="send-btn-text">Send Message</span>
+            <svg id="send-btn-spinner" class="hidden animate-spin ml-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+        </button>
+        
+        <!-- reCAPTCHA Badge Info -->
+        <p class="text-xs text-gray-500 text-center mt-3">
+            Protected by reCAPTCHA
+        </p>
+    </div>
+</div>
+
+<!-- Success Toast -->
+<div id="ihumbak-success-toast" 
+     class="toast bg-green-500 text-white top-6 right-6 hidden opacity-0 transform translate-y-2"
+     role="alert"
+     aria-live="polite">
+    <div class="flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        <span id="success-toast-message">Message sent! 🎉</span>
+    </div>
+</div>
+
+<!-- Error Toast -->
+<div id="ihumbak-error-toast" 
+     class="toast bg-red-500 text-white top-6 right-6 hidden opacity-0 transform translate-y-2"
+     role="alert"
+     aria-live="assertive">
+    <div class="flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+        <span id="error-toast-message">An error occurred. Please try again.</span>
+    </div>
+</div>

@@ -113,6 +113,11 @@ class Ihumbak_Chat {
 		 */
 		require_once IHUMBAK_CHAT_PLUGIN_DIR . 'includes/class-ihumbak-rest-api.php';
 
+		/**
+		 * The class responsible for public-facing functionality.
+		 */
+		require_once IHUMBAK_CHAT_PLUGIN_DIR . 'includes/class-ihumbak-public.php';
+
 		$this->loader = new Ihumbak_Chat_Loader();
 	}
 
@@ -155,6 +160,12 @@ class Ihumbak_Chat {
 		// Register REST API routes.
 		$rest_api = new Ihumbak_REST_API();
 		$this->loader->add_action( 'rest_api_init', $rest_api, 'register_routes' );
+
+		// Register public-facing functionality.
+		$plugin_public = new Ihumbak_Public( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'wp_footer', $plugin_public, 'render_widget' );
 	}
 
 	/**
