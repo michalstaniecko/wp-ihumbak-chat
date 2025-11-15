@@ -83,17 +83,29 @@ class Ihumbak_Public {
 	 * @since    1.0.0
 	 */
 	public function render_widget() {
-		// Get widget template
+		// Get widget template.
 		$template_path = IHUMBAK_CHAT_PLUGIN_DIR . 'public/templates/widget.html';
 
 		if ( ! file_exists( $template_path ) ) {
 			return;
 		}
 
-		// Load template
-		$template = file_get_contents( $template_path );
+		// Load template using WordPress filesystem API.
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		WP_Filesystem();
+		global $wp_filesystem;
+		
+		if ( ! $wp_filesystem ) {
+			return;
+		}
 
-		// Output template
+		$template = $wp_filesystem->get_contents( $template_path );
+
+		if ( false === $template ) {
+			return;
+		}
+
+		// Output template.
 		echo $template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }
